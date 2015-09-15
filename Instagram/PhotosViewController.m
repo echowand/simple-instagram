@@ -11,7 +11,9 @@
 #import "UIImageView+AFNetworking.h"
 #import "PhotoDetailsViewController.h"
 
-@interface PhotosViewController ()
+@interface PhotosViewController (){
+    UIRefreshControl *refreshControl;
+}
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property (strong, nonatomic) NSArray *photos;
 @end
@@ -42,6 +44,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshTab) forControlEvents:UIControlEventValueChanged];
+    [self.myTableView addSubview:refreshControl];
+    
     NSURL *url = [NSURL URLWithString:@"https://api.instagram.com/v1/media/popular?client_id=ffea331bec6a4ad1a4269dfd28b8166a"];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -51,6 +57,20 @@
         self.photos = responseDictionary[@"data"];
         [self.myTableView reloadData];
     }];
+}
+
+- (void)refreshTab {
+    
+    NSURL *url = [NSURL URLWithString:@"https://api.instagram.com/v1/media/popular?client_id=ffea331bec6a4ad1a4269dfd28b8166a"];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        
+        //NSLog(@"response: %@", responseDictionary);
+        self.photos = responseDictionary[@"data"];
+        [self.myTableView reloadData];
+    }];
+    [refreshControl endRefreshing];
 }
 
 - (void)didReceiveMemoryWarning {
