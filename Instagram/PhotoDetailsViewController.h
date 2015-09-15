@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PhotoDetailsViewController : UIViewController <UITableViewDataSource>
+@interface PhotoDetailsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) NSString *photoURL;
 @property (strong, nonatomic) NSString *photoCaption;

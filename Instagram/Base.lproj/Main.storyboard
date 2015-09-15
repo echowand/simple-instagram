@@ -95,15 +95,21 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="myCustomImageView" destination="EPa-R7-qgv" id="H4Q-N0-uYx"/>
+                                            <outlet property="myDeatilsCustomImageView" destination="EPa-R7-qgv" id="yoK-JT-wQa"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="nJg-84-cNn" id="daN-u0-Zi9"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="9EN-AE-yGo"/>
+                    <connections>
+                        <outlet property="myTableView" destination="5HV-i8-VsX" id="CZm-oB-WcE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cGY-c1-TKK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
